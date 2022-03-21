@@ -1,4 +1,7 @@
 #include "Bitwise.h"
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Problem 42-P1
+// Count the number of bits that are set to 1 in an integer
 
 // Approach 1 - O(n)
 // Method A
@@ -6,7 +9,7 @@
 // Time Complexity - O(n), where n is the count of bits in the number
 // Keeping the original number unchanged, and creating a new bitmask for each digit of the number
 
-unsigned short int bitwise::countOneBitsAp1(long long int num)
+unsigned short int bitwise::countOneBitsAp1(unsigned long long int num)
 {
     unsigned short int count = 0;
     const unsigned short int COUNT_BITS = (unsigned short int)sizeof(num) * 8;
@@ -32,7 +35,7 @@ unsigned short int bitwise::countOneBitsAp1(long long int num)
 // [1] Avoids the dependency on the number of bits of the number
 // [2] Bitshift left operator is safer than the bitshift right as in the case of signed numbers
 
-unsigned short int bitwise::countOneBitsAp2(long long int num)
+unsigned short int bitwise::countOneBitsAp2(unsigned long long int num)
 {
     unsigned short int count = 0;
     while (num)
@@ -74,7 +77,7 @@ unsigned short int bitwise::countOneBitsAp2(long long int num)
 // [1] Time complexity of the operation becomes O(k), k = count of 1s in the bit representation of the number
 //
 // Method A
-unsigned short int bitwise::countOneBitsAp3_1(long long int num)
+unsigned short int bitwise::countOneBitsAp3_1(unsigned long long int num)
 {
     unsigned short count = 0;
     long long int num2 = 0;
@@ -88,7 +91,7 @@ unsigned short int bitwise::countOneBitsAp3_1(long long int num)
     return count;
 }
 // Method B
-unsigned short int bitwise::countOneBitsAp3_2(long long int num)
+unsigned short int bitwise::countOneBitsAp3_2(unsigned long long int num)
 {
     unsigned short count = 0;
     while (num) // If the number is non-zero, it has atleast one bit with 1
@@ -98,3 +101,40 @@ unsigned short int bitwise::countOneBitsAp3_2(long long int num)
     }
     return count;
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Problem 43-P-5.1.A
+// Compute the parity of a word
+// Approach 1 - O(k), k = number of bits set to 1
+// Counting the number of bits that are set to and perform modulo 2 using XOR
+
+unsigned short int bitwise::parity1(unsigned long long int number)
+{
+    unsigned short int parity = 0;
+    while (number)
+    {
+        number &= (number - 1);
+        // Here we are directly checking for parity instead of first counting the total number of 1s,
+        // then performing modulo 2. At each intermedite step, we are setting parity = 0 if the count of
+        // 1s become odd
+        parity = parity ^ 1;
+    }
+    return parity;
+}
+// Approach 2 - O(log n), n = number of bits of the word
+// By using Divide and Conquer
+unsigned short int bitwise::parity2(unsigned long long int number)
+{
+    number ^= number >> 32; // number = number ^ number >> 32;
+    number ^= number >> 16;
+    number ^= number >> 8;
+    number ^= number >> 4;
+    number ^= number >> 2;
+    number ^= number >> 1;
+    return number & 1;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Problem 43-P-5.1.B
+// Compute the parity of a very large number of 64-bit words
+// In other words, there are a number of 64-bit words for which the parity needs to be tested
