@@ -1,6 +1,7 @@
 #include "Bitwise.h"
 
-// Approach 1
+// Approach 1 - O(n)
+// Method A
 // Looping over all the digits of the number to check for the value 1
 // Time Complexity - O(n), where n is the count of bits in the number
 // Keeping the original number unchanged, and creating a new bitmask for each digit of the number
@@ -21,10 +22,7 @@ unsigned short int bitwise::countOneBitsAp1(long long int num)
 
     return count;
 }
-
-// --------------------------------------------------------------------------------------------------------------------------------------- //
-
-// Approach 2
+// Method B
 // Looping over all the digits of the number to check for the value 1
 // Time Complexity - O(n), where n is the count of bits in the number
 // Modifying the number but keeping the same bitmask
@@ -58,23 +56,24 @@ unsigned short int bitwise::countOneBitsAp2(long long int num)
 
 // --------------------------------------------------------------------------------------------------------------------------------------- //
 
-// Approach 3
+// Approach 2 - O(k), k = count of 1s in the bit representation of the number
 // By isolating on the bits which are set to 1 and keeping a count of them.
 // We can replace the lowest bit that is 1 with 0 in an integer valued number by using two methods:
 //
 // x = Input number
-// Approach 3.1
+// Method A
 // y = x & ~(x-1) isolates the lowest bit that is 1
 // x = y ^ x updates x to a new value with the lowest 1 eliminated
 // Iterate this process until all the 1 are eliminated from x, keeping a count of 1s
 //
-// Approach 3.2
+// Method B
 // x = x & (x-1) elimates the lowest bit that is 1 from the input
 // Iterate this process until all the 1 are eliminated from x, keeping a count of 1s
 //
 // Advantage
 // [1] Time complexity of the operation becomes O(k), k = count of 1s in the bit representation of the number
 //
+// Method A
 unsigned short int bitwise::countOneBitsAp3_1(long long int num)
 {
     unsigned short count = 0;
@@ -88,7 +87,7 @@ unsigned short int bitwise::countOneBitsAp3_1(long long int num)
     }
     return count;
 }
-
+// Method B
 unsigned short int bitwise::countOneBitsAp3_2(long long int num)
 {
     unsigned short count = 0;
