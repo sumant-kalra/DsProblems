@@ -5,10 +5,10 @@
  * DS and Algorithms problems on Bitwise Operators
  * Source - Elements of Programming Interview Chapter 5
  *
- * Three Problems:
- * 1. Count the number of 1s in the binary representation of a number
- * 2. Find the parity of a word
- * 3. Find the parity of a number of 64-bit words
+ * Three Problems:                                                      : n = word size, k = number of ones, L = length of bits cached
+ * 1. Count the number of 1s in the binary representation of a number   : Best Solution O(k)
+ * 2. Find the parity of a word                                         : Best Solution O(log n)
+ * 3. Find the parity of a number of 64-bit words                       : Best Solution O(log n) + O(n/L)
  *
  * Solution:
  * 1. Solved by 2 approaches: O(n) and O(k); n = word size, k = number of 1s.
@@ -19,10 +19,10 @@
  *      to obtain the parity of the 64-bit word by splitting it into 4 groups of 16-bit words.
  *
  * Important learnings: x and y be the words
- * 1. y = x & ~(x-1) : Isolates the lowest bit that is 1
- * 2. x = x ^ y : Eliminates the lowest bit which is set to 1, where y = x & ~(x-1)
- * 3. x = x&(x-1) : Eliminates the lowest bit which is set to 1
- * 4. a^b : Parity check for the corresponding bits
+ * 1. y = x & ~(x-1)    : Isolates the lowest bit that is 1
+ * 2. x = x ^ y         : Eliminates the lowest bit which is set to 1, where y = x & ~(x-1)
+ * 3. x = x & (x-1)     : Eliminates the lowest bit which is set to 1
+ * 4. a^b               : Parity check for the corresponding bits
  */
 
 namespace bitwise
