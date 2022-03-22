@@ -1,3 +1,7 @@
+#include <cmath>
+#include <memory>
+#include <iostream>
+
 #include "Bitwise.h"
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Problem 42-P1
@@ -138,3 +142,30 @@ unsigned short int bitwise::parity2(unsigned long long int number)
 // Problem 43-P-5.1.B
 // Compute the parity of a very large number of 64-bit words
 // In other words, there are a number of 64-bit words for which the parity needs to be tested
+void bitwise::parity3(int argc, char *argv[])
+{
+    int sizeOfCache = (int)std::pow(2.0, 16.0);
+    // Caching the parity results of all the 16 bit words
+    bool *parity16BitCache = new bool[sizeOfCache];
+    for (int i = 0; i < sizeOfCache; i++)
+    {
+        parity16BitCache[i] = bitwise::parity2(i);
+    }
+    // Computing the parity of each of the number from the work input by the user
+    unsigned long long int number = 0;
+    const int kWordSize = 16;
+    const int KBitMask = 0xFFFF; // Total - 8 bits
+    unsigned short int parityResult = 0;
+    for (int i = 1; i < argc; i++) // The first string is the name of the binary
+    {
+        number = atoll(argv[i]);
+        //    G1       G2       G3       G4
+        // [[[[]]]] [[[[]]]] [[[[]]]] [[[[]]]]
+        parityResult = parity16BitCache[number >> (3 * kWordSize)] ^              // Formulate a number with G1 bits - 16 bit word
+                       parity16BitCache[(number >> (2 * kWordSize)) & KBitMask] ^ // Formulate a number with G2 bits - 16 bit word
+                       parity16BitCache[(number >> kWordSize) & KBitMask] ^       // Formulate a number with G3 bits - 16 bit word
+                       parity16BitCache[number & KBitMask];                       // Formulate a number with G4 bits - 16 bit word
+        std::cout << "The parity of the number " << number << " is: " << parityResult << "\n";
+    }
+    delete[] parity16BitCache;
+}

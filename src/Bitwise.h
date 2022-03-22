@@ -39,6 +39,18 @@ namespace bitwise
     // Problem 43-P-5.1.B
     // Compute the parity of a very large number of 64-bit words
     // In other words, there are a number of 64-bit words for which the parity needs to be tested
+    // Cache the parity results in an array and then access the results with O(1) complexity from the array
+
+    // If we cache all the parity results of all the possible numbers that can be formed by using 64 bit word in an array
+    // then the size of the array required will be 2^64 elements with size of element as 2 bytes (short int), which is not practical.
+    // However, we can cache the parity results of all the numbers possible with 16 bits in an array. The size of array required
+    // will be 2^16 elements = 65536 with size of each element as 2 bytes (short int), which is reasonable.
+    // Since the parity calculation is associative, we can split the original 64 bits into 4 group of 16 bits and find the parity results
+    // of each group from the cache and then find the final parity result from the 4 groups.
+
+    // Note that the cache will not be very useful unless we are running the application in loop to find the parity
+    // of a large number of 64 bit words. If we wanted to find parity of a single word then, the direct computation would have been better.
+    void parity3(int argc, char *argv[]); // User inputs all the words for parity calculations as arguments while executing the application
 
 }
 
