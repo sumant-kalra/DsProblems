@@ -4,6 +4,25 @@
  * @brief Bitwise Operators
  * DS and Algorithms problems on Bitwise Operators
  * Source - Elements of Programming Interview Chapter 5
+ *
+ * Three Problems:
+ * 1. Count the number of 1s in the binary representation of a number
+ * 2. Find the parity of a word
+ * 3. Find the parity of a number of 64-bit words
+ *
+ * Solution:
+ * 1. Solved by 2 approaches: O(n) and O(k); n = word size, k = number of 1s.
+ * 2. Solved by 2 approaches:
+ *    I.  Counting the number of 1s (Problem 1) and obtaining modulo 2.
+ *    II. O(log n); n = word size; Using Commutative Property of parity computation.
+ * 3. Solved by caching the parity results of all the 16-bit words and using Associativity Property of parity computation
+ *      to obtain the parity of the 64-bit word by splitting it into 4 groups of 16-bit words.
+ *
+ * Important learnings: x and y be the words
+ * 1. y = x & ~(x-1) : Isolates the lowest bit that is 1
+ * 2. x = x ^ y : Eliminates the lowest bit which is set to 1, where y = x & ~(x-1)
+ * 3. x = x&(x-1) : Eliminates the lowest bit which is set to 1
+ * 4. a^b : Parity check for the corresponding bits
  */
 
 namespace bitwise
@@ -11,13 +30,13 @@ namespace bitwise
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Problem 42-P1
     // Count the number of bits that are set to 1 in an integer
-    // Approach 1.A
+    // Approach 1.A --> My way
     unsigned short int countOneBitsAp1(unsigned long long int number);
-    // Approach 1.B
+    // Approach 1.B --> The better way
     unsigned short int countOneBitsAp2(unsigned long long int number);
-    // Approach 2.A
+    // Approach 2.A --> Refined approach 1, another way
     unsigned short int countOneBitsAp3_1(unsigned long long int number);
-    // Approach 2.B
+    // Approach 2.B --> Refined approach 1, the best way
     unsigned short int countOneBitsAp3_2(unsigned long long int number);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -40,6 +59,8 @@ namespace bitwise
     // Compute the parity of a very large number of 64-bit words
     // In other words, there are a number of 64-bit words for which the parity needs to be tested
     // Cache the parity results in an array and then access the results with O(1) complexity from the array
+
+    // O(n/L) : n = word size, L = width of the words for which the results are cached
 
     // If we cache all the parity results of all the possible numbers that can be formed by using 64 bit word in an array
     // then the size of the array required will be 2^64 elements with size of element as 2 bytes (short int), which is not practical.
