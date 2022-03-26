@@ -158,7 +158,7 @@ void bitwise::parity3(int argc, char *argv[])
     unsigned short int parityResult = 0;
     for (int i = 1; i < argc; i++) // The first string is the name of the binary
     {
-        number = atoll(argv[i]);
+        number = strtoull(argv[i], nullptr, 10);
         //    G1       G2       G3       G4
         // [[[[]]]] [[[[]]]] [[[[]]]] [[[[]]]]
         parityResult = parity16BitCache[number >> (3 * kWordSize)] ^              // Formulate a number with G1 bits - 16 bit word
