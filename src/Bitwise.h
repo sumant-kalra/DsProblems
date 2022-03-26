@@ -9,6 +9,7 @@
  * 1. Count the number of 1s in the binary representation of a number   : Best Solution O(k)
  * 2. Find the parity of a word                                         : Best Solution O(log n)
  * 3. Find the parity of a number of 64-bit words                       : Best Solution O(log n) + O(n/L)
+ * 4. Compute pow(x,y), where x is a floating point number and y is an integer : Best Solution O(log y)
  *
  * Solution:
  * 1. Solved by 2 approaches: O(n) and O(k); n = word size, k = number of 1s.
@@ -17,6 +18,9 @@
  *    II. O(log n); n = word size; Using Commutative Property of parity computation.
  * 3. Solved by caching the parity results of all the 16-bit words and using Associativity Property of parity computation
  *      to obtain the parity of the 64-bit word by splitting it into 4 groups of 16-bit words.
+ * 4. Solved by 2 approaches
+ *    I.  Brute force approach - Multiply x with itself for y number of times, O(y)
+ *    II. Refined-Brute force - Keep on extracting 2 from power y and squaring the number inside (x) until y = 1, O(log y)
  *
  * Important learnings: x and y be the words
  * 1. y = x & ~(x-1)    : Isolates the lowest bit that is 1
@@ -73,6 +77,15 @@ namespace bitwise
     // of a large number of 64 bit words. If we wanted to find parity of a single word then, the direct computation would have been better.
     void parity3(int argc, char *argv[]); // User inputs all the words for parity calculations as arguments while executing the application
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Problem 51-5.7
+    // Compute pow(x,y), where x is a floating point number and y is an integer : Best Solution O(log y)
+    // I.  Brute force approach - Multiply x with itself for y number of times, O(y)
+    double pow1(double x, long long int y);
+    // II. Refined-Brute force approach - Keep on extracting 2 from power y and squaring the number inside (x) until y = 1, O(log y)
+    //     At any step in the iteration, if y is odd then, (x^2)^(y/2).(x);
+    //                                   if y is even then, (x^2)^(y/2); ^ represents power
+    double pow2(double x, long long int y);
 }
 
 #endif

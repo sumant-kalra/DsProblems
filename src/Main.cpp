@@ -1,9 +1,14 @@
 #include <iostream>
+#include <bitset>
 
 #include "Bitwise.h"
 
+#define ACTIVE 0
+
 int main(int argc, char *argv[])
 {
+#if ACTIVE
+
     // Problem 42-P1
     // Count the number of bits that are set to 1 in an integer
 
@@ -29,6 +34,12 @@ int main(int argc, char *argv[])
     // Problem 43-P-5.1.B
     // Compute the parity of a number of 64 bit words
     bitwise::parity3(argc, argv);
+
+    // Problem 51-5.7
+    // Compute pow(x,y), where x is a floating point number and y is an integer
+    std::cout << bitwise::pow1(2, -3) << "\n";
+    std::cout << bitwise::pow2(2, -3) << "\n";
+#endif
 
     return 0;
 }

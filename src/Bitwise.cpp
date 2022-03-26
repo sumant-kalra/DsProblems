@@ -1,5 +1,4 @@
 #include <cmath>
-#include <memory>
 #include <iostream>
 
 #include "Bitwise.h"
@@ -85,12 +84,12 @@ unsigned short int bitwise::countOneBitsAp3_1(unsigned long long int num)
 {
     unsigned short count = 0;
     long long int num2 = 0;
-    while (num) // If the number is non-zero, it has atleast one bit with 1
+    while (num) /// If the number is non-zero, it has atleast one bit with 1
     {
         // Isolating and eliminating the lowest bit that is one and keeping the count
-        num2 = num & ~(num - 1); // Isolate
-        num = num ^ num2;        // Eliminate
-        ++count;                 // Keeping a count
+        num2 = num & ~(num - 1); /// Isolate
+        num = num ^ num2;        /// Eliminate
+        ++count;                 /// Keeping a count
     }
     return count;
 }
@@ -98,10 +97,10 @@ unsigned short int bitwise::countOneBitsAp3_1(unsigned long long int num)
 unsigned short int bitwise::countOneBitsAp3_2(unsigned long long int num)
 {
     unsigned short count = 0;
-    while (num) // If the number is non-zero, it has atleast one bit with 1
+    while (num) /// If the number is non-zero, it has atleast one bit with 1
     {
-        num = num & (num - 1); // Eliminating the lowest bit that is one and keeping the count
-        ++count;               // Keeping a count
+        num = num & (num - 1); /// Eliminating the lowest bit that is one and keeping the count
+        ++count;               /// Keeping a count
     }
     return count;
 }
@@ -129,7 +128,7 @@ unsigned short int bitwise::parity1(unsigned long long int number)
 // By using Divide and Conquer
 unsigned short int bitwise::parity2(unsigned long long int number)
 {
-    number ^= number >> 32; // number = number ^ number >> 32;
+    number ^= number >> 32; /// number = number ^ number >> 32;
     number ^= number >> 16;
     number ^= number >> 8;
     number ^= number >> 4;
@@ -154,18 +153,61 @@ void bitwise::parity3(int argc, char *argv[])
     // Computing the parity of each of the number from the work input by the user
     unsigned long long int number = 0;
     const int kWordSize = 16;
-    const int KBitMask = 0xFFFF; // Total - 8 bits
+    const int KBitMask = 0xFFFF; /// Total - 8 bits
     unsigned short int parityResult = 0;
-    for (int i = 1; i < argc; i++) // The first string is the name of the binary
+    for (int i = 1; i < argc; i++) /// s The first string is the name of the binary
     {
         number = strtoull(argv[i], nullptr, 10);
         //    G1       G2       G3       G4
         // [[[[]]]] [[[[]]]] [[[[]]]] [[[[]]]]
-        parityResult = parity16BitCache[number >> (3 * kWordSize)] ^              // Formulate a number with G1 bits - 16 bit word
-                       parity16BitCache[(number >> (2 * kWordSize)) & KBitMask] ^ // Formulate a number with G2 bits - 16 bit word
-                       parity16BitCache[(number >> kWordSize) & KBitMask] ^       // Formulate a number with G3 bits - 16 bit word
-                       parity16BitCache[number & KBitMask];                       // Formulate a number with G4 bits - 16 bit word
+        parityResult = parity16BitCache[number >> (3 * kWordSize)] ^              /// Formulate a number with G1 bits - 16 bit word
+                       parity16BitCache[(number >> (2 * kWordSize)) & KBitMask] ^ /// Formulate a number with G2 bits - 16 bit word
+                       parity16BitCache[(number >> kWordSize) & KBitMask] ^       /// Formulate a number with G3 bits - 16 bit word
+                       parity16BitCache[number & KBitMask];                       /// Formulate a number with G4 bits - 16 bit word
         std::cout << "The parity of the number " << number << " is: " << parityResult << "\n";
     }
     delete[] parity16BitCache;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Problem 51-5.7
+// Compute pow(x,y), where x is a floating point number and y is an integer
+// Brute force solution
+double bitwise::pow1(double x, long long int y)
+{
+    if (y < 0)
+    {
+        x = 1 / x;
+        y = -1 * y;
+    }
+
+    double result = 1; /// Initialized to 1, for the case when y = 0
+    for (int i = 0; i < y; ++i)
+        result = result * x;
+
+    return result;
+}
+// Refined-Brute force solution
+double bitwise::pow2(double x, long long int y)
+{
+    double result = 1; /// Initialized to 1, for the case when y = 0
+    long long int power = y;
+    if (y < 0)
+    {
+        x = 1 / x;
+        power = -1 * power; /// Mandatory if we are using >> for division by 2
+        /// since bitshifting a negative number to the right is compiler specific behaviour
+        /// Unsigned int are preferred for Bit shift operators
+    }
+
+    while (power)
+    {
+        if (power % 2) /// power % 2 --> power&1: Checking the LSB for 1
+        {
+            result *= x; /// result = result * x
+        }
+        x *= x;     /// x = x * x
+        power /= 2; /// power = power/2 --> power = power>>1
+    }
+    return result;
 }
