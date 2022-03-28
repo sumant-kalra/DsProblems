@@ -151,19 +151,17 @@ void bitwise::parity3(int argc, char *argv[])
         parity16BitCache[i] = bitwise::parity2(i);
     }
     // Computing the parity of each of the number from the work input by the user
-    unsigned long long int number = 0;
     const int kWordSize = 16;
-    const int KBitMask = 0xFFFF; /// Total - 8 bits
-    unsigned short int parityResult = 0;
+    const int KBitMask = 0xFFFF;   /// Total - 8 bits
     for (int i = 1; i < argc; i++) /// s The first string is the name of the binary
     {
-        number = strtoull(argv[i], nullptr, 10);
+        unsigned long long int number = strtoull(argv[i], nullptr, 10);
         //    G1       G2       G3       G4
         // [[[[]]]] [[[[]]]] [[[[]]]] [[[[]]]]
-        parityResult = parity16BitCache[number >> (3 * kWordSize)] ^              /// Formulate a number with G1 bits - 16 bit word
-                       parity16BitCache[(number >> (2 * kWordSize)) & KBitMask] ^ /// Formulate a number with G2 bits - 16 bit word
-                       parity16BitCache[(number >> kWordSize) & KBitMask] ^       /// Formulate a number with G3 bits - 16 bit word
-                       parity16BitCache[number & KBitMask];                       /// Formulate a number with G4 bits - 16 bit word
+        unsigned short int parityResult = parity16BitCache[number >> (3 * kWordSize)] ^              /// Formulate a number with G1 bits - 16 bit word
+                                          parity16BitCache[(number >> (2 * kWordSize)) & KBitMask] ^ /// Formulate a number with G2 bits - 16 bit word
+                                          parity16BitCache[(number >> kWordSize) & KBitMask] ^       /// Formulate a number with G3 bits - 16 bit word
+                                          parity16BitCache[number & KBitMask];                       /// Formulate a number with G4 bits - 16 bit word
         std::cout << "The parity of the number " << number << " is: " << parityResult << "\n";
     }
     delete[] parity16BitCache;
