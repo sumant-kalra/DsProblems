@@ -5,4 +5,6 @@ add_compile_definitions(PR_RELEASE=1)
 add_executable(runApp 
                         src/Main.cpp
                         src/Bitwise.h
-                        src/Bitwise.cpp)
+                        src/Bitwise.cpp
+                        src/Random.h
+                        src/Random.cpp)
