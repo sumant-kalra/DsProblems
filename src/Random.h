@@ -7,8 +7,10 @@ namespace random_space
     unsigned short int generatePIN_4_C();
 
     // C++11
-    // distribution(generator)
-    // Initialize/Seed the generator with an unsigned value from any clock
+    // Distribution bounds the output of the generator intialized with a seed
+
+    // 1. distribution(2. generator)
+    // 1.5 Initialize/Seed the generator with an unsigned value from any clock
 
     // Generate a 4 digit PIN using <random> library of C++
     unsigned short int generatePIN_4_cpp();

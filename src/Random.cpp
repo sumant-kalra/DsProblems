@@ -1,8 +1,9 @@
-#include "Random.h"
 #include <cstdlib>
 #include <ctime>
 #include <random>
 #include <chrono>
+
+#include "Random.h"
 
 //------------------------------------------------------------//
 unsigned short int random_space::generatePIN_4_C()
@@ -44,5 +45,5 @@ double random_space::generateRandCanonical()
     std::default_random_engine generator(seed);
 
     // Generates a random floating point number in range [0,1)
-    return std::generate_canonical<double, std::numeric_limits<double>::digits>(generator);
+    return std::generate_canonical<double, 10>(generator);
 }
