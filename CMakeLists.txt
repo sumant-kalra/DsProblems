@@ -7,4 +7,6 @@ add_executable(runApp
                         src/Bitwise.h
                         src/Bitwise.cpp
                         src/Random.h
-                        src/Random.cpp)
+                        src/Random.cpp
+                        src/Arrays.h
+                        src/Arrays.cpp)
