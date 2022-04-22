@@ -9,4 +9,6 @@ add_executable(runApp
                         src/Random.h
                         src/Random.cpp
                         src/Arrays.h
-                        src/Arrays.cpp)
+                        src/Arrays.cpp
+                        src/Recursion.h
+                        src/Recursion.cpp)
