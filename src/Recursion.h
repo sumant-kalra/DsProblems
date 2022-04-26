@@ -2,6 +2,8 @@
 #define RECURSION_H
 
 #include <string>
+#include <vector>
+#include <array>
 
 namespace recursion
 {
@@ -61,10 +63,12 @@ namespace recursion
 
     // Recursive - Power function implementation - Optimized
     // Time - O(log p) Space - O(log p)
+    // March towards the Base case by withdrawing 2 from the power at each recursion
     double powerOptimized_r(double n, int p);
 
     // Iterative - Power function implementation - Optimized
     // Time - O(log p) Space - O(1)
+    // Square the number n until you reach p
     double powerOptimized_i(double n, int p);
 
     // Recursive - Print n - 0 - n; ex - 5 4 3 2 1 0 1 2 3 4 5
@@ -77,6 +81,36 @@ namespace recursion
     // Time - O(2n) Space - O(1)
     void printN0N_i(int n);
 
+    // Just for the practise
+    double power_r(double x, int y);
+    double power_i(double x, int y);
+
+    // Binary search algorithm using recursion
+    // bool binarySearch_r(const std::vector<int> &vec, int num);
+
+    // Binary search algorithm using iterative approach
+    template <int N>
+    int binarySearch_i(const std::array<int, N> &sortedArray, int num)
+    {
+        int left = 0;
+        int right = sortedArray.size() - 1;
+        int mid = (left + right) / 2;
+        while (left <= right)
+        {
+            if (sortedArray.at(mid) == num)
+                return mid;
+            else if (sortedArray.at(mid) < num)
+            {
+                left = mid + 1;
+            }
+            else if (sortedArray.at(mid) > num)
+            {
+                right = mid - 1;
+            }
+            mid = (left + right) / 2;
+        }
+        return -1;
+    }
 }
 
 #endif

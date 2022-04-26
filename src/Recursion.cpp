@@ -212,3 +212,76 @@ void recursion::printN0N_i(int n)
 
     std::cout << "\n";
 }
+
+// --------------------------------------------------------------------------- //
+
+double recursion::power_r(double n, int p)
+{
+    if (p == 0)
+        return 1;
+    if (p < 0)
+    {
+        p = -1 * p;
+        n = 1 / n;
+    }
+
+    double temp = 1.0;
+
+    if (p % 2)
+    {
+        return n * recursion::power_r(n, p - 1);
+    }
+    else
+    {
+        temp = recursion::power_r(n, p / 2);
+        return temp * temp;
+    }
+}
+
+double recursion::power_i(double n, int p)
+{
+    double result = 1.0;
+    if (p < 0)
+    {
+        p = -1 * p;
+        n = 1 / n;
+    }
+
+    while (p)
+    {
+        if (p % 2)
+        {
+            result = n * result;
+        }
+
+        n = n * n;
+        p = p / 2;
+    }
+    return result;
+}
+
+#if 0
+// --------------------------------------------------------------------------- //
+// Incorrect
+bool recursion::binarySearch_r(const std::vector<int> &vec, int num)
+{
+    if (!vec.size())
+        return false;
+    else
+    {
+        int mid = vec.size() / 2;
+        if (vec[mid] == num)
+            return true;
+        if (vec[mid] < num)
+        {
+            std::vector<int> lVec(vec.begin(), vec.begin() + mid);
+            return recursion::binarySearch_r(lVec, num);
+        }
+        else
+        {
+            std::vector<int> rVec(vec.begin() + mid + 1, vec.end());
+            return recursion::binarySearch_r(rVec, num);
+        }
+    }
+}
+#endif
