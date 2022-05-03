@@ -260,9 +260,7 @@ double recursion::power_i(double n, int p)
     return result;
 }
 
-#if 0
 // --------------------------------------------------------------------------- //
-// Incorrect
 bool recursion::binarySearch_r(const std::vector<int> &vec, int num)
 {
     if (!vec.size())
@@ -270,9 +268,9 @@ bool recursion::binarySearch_r(const std::vector<int> &vec, int num)
     else
     {
         int mid = vec.size() / 2;
-        if (vec[mid] == num)
+        if (num == vec[mid])
             return true;
-        if (vec[mid] < num)
+        if (num < vec[mid])
         {
             std::vector<int> lVec(vec.begin(), vec.begin() + mid);
             return recursion::binarySearch_r(lVec, num);
@@ -284,4 +282,3 @@ bool recursion::binarySearch_r(const std::vector<int> &vec, int num)
         }
     }
 }
-#endif

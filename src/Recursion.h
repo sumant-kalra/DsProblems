@@ -86,7 +86,7 @@ namespace recursion
     double power_i(double x, int y);
 
     // Binary search algorithm using recursion
-    // bool binarySearch_r(const std::vector<int> &vec, int num);
+    bool binarySearch_r(const std::vector<int> &vec, int num);
 
     // Binary search algorithm using iterative approach
     template <int N>

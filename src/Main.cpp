@@ -34,9 +34,12 @@ int main(int argc, char *argv[])
 #endif
 
     std::vector<int> myVec{-98, -39, -1, 3, 7, 13, 89, 109, 133, 180, 389};
+
     std::array<int, 11> myArray{-98, -39, -1, 3, 7, 13, 89, 109, 133, 180, 389};
 
     std::cout << recursion::binarySearch_i<11>(myArray, atoi(argv[1])) << "\n";
+
+    std::cout << recursion::binarySearch_r(myVec, atoi(argv[1])) << "\n";
 
     return 0;
 }
